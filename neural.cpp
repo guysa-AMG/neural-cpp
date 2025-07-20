@@ -55,11 +55,11 @@ int main(){
  for(int epoch=0;epoch<10000;++epoch){
     float loss=0;
     for(int i=0;i<4;++i){
-        std::vector<float> node= input[i];
+        std::vector<float> values= input[i];
         float label = labels[i];
 
-        float o1 = h1.activate(node);
-        float o2 = h2.activate(node);
+        float o1 = h1.activate(values);
+        float o2 = h2.activate(values);
 
         std::vector<float> hidden = {o1,o2};
         float y_hat = out.activate(hidden);
@@ -69,18 +69,39 @@ int main(){
         //backpropagation
         float out_grad = error * sigmoid_derivative(y_hat);
 
-        for(int j=0;j<out.weights.size();++j){
+        for(int j=0;j<out.weights.size();++j)
             out.weights[j] += lr * out_grad * hidden[j];
-            out.bias += lr * out_grad;
+        out.bias += lr * out_grad;
 
-            
+        float h1_grad = out.weights[0] * out_grad * sigmoid_derivative(o1);
+        float h2_grad = out.weights[1] * out_grad * sigmoid_derivative(o2);
 
+        for(int k=0;k<values.size();++k){
+                h1.weights[k] += lr * h1_grad * values[k];
+                h2.weights[k] += lr *h2_grad * values[k];
+
+            }
+            h1.bias += lr * h1_grad;
+            h2.bias += lr * h2_grad;
+        }
+        if(epoch%1000==0)
+            std::cout<<"epoch: "<<epoch<<" loss: "<<loss<<std::endl;
+        }
+
+        std::cout<<"\n Final prediction\n";
+
+        for(int j=0;j<4;++j){
+            float o1 = h1.activate(input[j]);
+            float o2 = h2.activate(input[j]);
+            float output = out.activate({o1,o2});
+
+            std::cout<<input[j][0]<<" , "<<input[j][1]<<"-->"<<output<<std::endl;
         }
 
 
 
     }
 
- }
+ 
 
-}
+
