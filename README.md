@@ -1,8 +1,8 @@
-# 🧠 C++ Neural Network Playground
+#  C++ Neural Network Playground
 
 A collection of machine learning experiments written entirely in modern C++—built from scratch for performance, transparency, and educational clarity. No frameworks. No dependencies. Just handcrafted logic that teaches how ML works under the hood.
 
-## 🚀 Included Projects
+##  Included Projects
 
 | Module            | Description                                                     |
 |-------------------|-----------------------------------------------------------------|
@@ -13,7 +13,7 @@ A collection of machine learning experiments written entirely in modern C++—bu
 
 > Additional C++ modules are in progress (e.g. voice embedding, OpenCV classifiers, audio buffers)
 
-## 🛠️ Build & Run
+##  Build & Run
 
 Compile using any C++17 or newer compiler:
 
